@@ -393,8 +393,8 @@ Authorization.prototype.showGreeting = function () {
 	if (this.schedule['date'] == '') {
 		recordsTable = 'У Вас нет записей!';
 	} else {
-		recordsTable = '' +
-			'<table>\n' +
+		recordsTable = 'Ближайшие записи:' +
+			'<table class="table">\n' +
 				'<thead>\n' +
 					'<tr>\n' +
 						'<td>Дата</td><td>Время</td><td>Работа</td>\n' +
@@ -403,6 +403,10 @@ Authorization.prototype.showGreeting = function () {
 				'<tbody>\n';
 		for (var i = 0; i < this.schedule['date'].length; i++) {
 			// Тут <tr> и с открытием и с закрытием!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			recordsTable += '' +
+			'<tr>' +
+			'<td>'+this.schedule['date'][i]+'</td><td>'+this.schedule['timefrom'][i]+'</td><td>'+this.schedule['worktype'][i]+'</td>' +
+			'</tr>';
 		};
 		recordsTable += '' +
 				'</tbody>\n' +
