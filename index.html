@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<title>Запись на маникюр</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+<link rel="stylesheet" href="styles.css" />
+<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="./mainjs.js"></script>
+</head>
+<body onload="start ();">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<div id="dimming" onclick="closeForms (); "></div>
+<div id="registrationForm">
+	<strong>Регистрация</strong><br /><br />
+	<form name="regForm">
+		<input type="text" name="userName" placeholder="Ваше имя" class="form-control" oninput="showErrorMessageObj.hide (1); " />
+		<input type="email" name="email" placeholder="E-mail" class="form-control" oninput="showErrorMessageObj.hide (2); " />
+		<input type="text" name="phone" placeholder="Номер телефона" class="form-control" oninput="showErrorMessageObj.hide (7); " />
+		<input type="password" name="pass1" placeholder="Пароль" class="form-control" oninput="showErrorMessageObj.hide (3); " />
+		<input type="password" name="pass2" placeholder="Подтверждение пароля" class="form-control" oninput="showErrorMessageObj.hide (4); " /><br />
+		<button type="submit" class="btn btn-primary btn-block" onclick="register (); return false; ">Зарегистрироватся</button>
+	</form>
+</div>
+<div id="recordForm">
+	<form name="workTypeForm">
+		<label>Выберите тип работы:</label>
+		<select name="workType" onchange="nailAppObj.fillTimePrice (); ">     <!--  Надо переделать в изменение пеменных в объекте NailAppObj -->
+			<optgroup label="Руки">
+				<option value="1" selected>Покрытие гель-лаком</option>
+				<option value="2">Наращивание</option>
+				<option value="3">Коррекция</option>
+			</optgroup>
+			<optgroup label="Ноги">
+				<option value="4">Покрытие гель-лаком</option>
+			</optgroup>
+		</select>
+		<br /><br />
+		<label>Маникюр/педикюр</label>
+		<input name="manikyurCheckbox" type="checkbox" checked onclick="nailAppObj.fillTimePrice (); " />   <!--  Тоже самое - надо изменять булевую переменную  -->
+		<br/ ><br />
+		Длительность: <span id="duration"></span> часа (<span id="timeFrom"></span> - <span id="timeTo"></span>)<br />
+		Цена: <span id="price"></span> грн<br />
+		<br />
+		<input type="button" value="Запись" id="recordFormButton" /> <!-- Тут был submit -->
+	</form>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-1"></div>
+		<div class="col-lg-6">						<!-- Блок с календарем -->
+			<div id="currentMonthMessage"></div>
+			<div class="table-responsive">
+				<table class="table table-bordered table-condensed">
+					<thead>
+						<tr>
+							<td>ПН</td><td>ВТ</td><td>СР</td><td>ЧТ</td><td>ПТ</td><td>СБ</td><td>ВС</td>
+						</tr>
+					</thead>
+					<tbody id="currentMonthTbodyId">
+						<tr>
+							<td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<td>&nbsp</td><td></td><td></td><td></td><td></td><td></td><td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="nextMonthMessage"></div>
+			<div class="table-responsive">
+				<table class="table table-bordered table-condensed">
+					<thead>
+						<tr>
+							<td>ПН</td><td>ВТ</td><td>СР</td><td>ЧТ</td><td>ПТ</td><td>СБ</td><td>ВС</td>
+						</tr>
+					</thead>
+					<tbody id="nextMonthTbodyId">
+						<tr>
+							<td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<td>&nbsp</td><td></td><td></td><td></td><td></td><td></td><td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div id="selectedDayTableMessage"></div>
+			<div class="table-responsive">
+				<table class="table table-bordered">
+					<tbody id="selectedDayTable">
+						<tr>
+							<td></td><td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<td></td><td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<td></td><td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<td></td><td></td><td></td><td></td><td></td><td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="authorization"></div>
+		</div>
+		<div class="col-lg-1"></div>
+	</div>
+</div>
+<div id="tratata">
+Возврат от выполнения пхп с ид тратата
+</div>
+</body>
+</html>

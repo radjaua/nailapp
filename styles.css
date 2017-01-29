@@ -1,0 +1,8 @@
+table thead { font-weight: bold; text-align: center; }
+table tbody { text-align: center; }
+#currentMonthMessage { text-align: center; font-weight: bold; }
+#nextMonthMessage { text-align: center; font-weight: bold; }
+#selectedDayTableMessage { text-align: center; font-weight: bold; }
+#dimming { position: absolute; display: none; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,.1); z-index: 5 }
+#recordForm { position: absolute; display: none; top: 50%; left: 50%; padding: 10px; border-radius: 7px; background-color: #fff; width: 340px; height: 240px; margin: -120px 0 0 -170px; z-index: 10; }
+#registrationForm { position: absolute; display: none; top: 50%; left: 50%; padding: 10px; border-radius: 7px; background-color: #fff; width: 340px; height: 290px; margin: -145px 0 0 -170px; z-index: 10; }
