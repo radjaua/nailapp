@@ -16,7 +16,7 @@ NailAppClass.prototype.makeCalendar = function (idMonthMessage, idTbody) {
 		alreadyDisactivated = true;
 	};
 	var now = new Date (serverCurrentDate.year, serverCurrentDate.month-1, serverCurrentDate.day);
-	now.setMonth (now.getMonth () + this.monthNumber);
+	now.setMonth (now.getMonth () + this.monthNumber, this.monthNumber ? 1 : now.getDate ());
 	document.getElementById (idMonthMessage).innerHTML = nameOfMonth (now.getMonth());
 	var monthTable = document.getElementById (idTbody),
 		horizontalPosition = dayName1Number (now.getMonth (), now.getFullYear ()) - 1,
@@ -79,9 +79,11 @@ NailAppClass.prototype.makeCalendar = function (idMonthMessage, idTbody) {
 			verticalPosition++;
 		};
 	};
+	//alert (this.monthNumber);
 	if (this.monthNumber == 0) {
 		this.monthNumber++;
 	};
+	//alert (this.monthNumber);
 };
 NailAppClass.prototype.fillSelectedDayTable = function () {
 	var selectedDateObj = new Date (this.selectedDate.year, this.selectedDate.month - 1, this.selectedDate.day, this.selectedDate.hour, this.selectedDate.minute),
